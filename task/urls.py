@@ -8,4 +8,4 @@ urlpatterns = [
     path('sair/', views.sair, name='sair'),
     path('tasks/', views.tasks, name='tasks'),
 
-]
+] # noqa

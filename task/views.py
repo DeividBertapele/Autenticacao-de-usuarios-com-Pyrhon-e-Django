@@ -2,21 +2,22 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 
 
 def home(request):
-    return render(request,'home.html')
+    return render(request, 'home.html')
 
 
 def sigup(request):
 
     if request.method == 'GET':
 
-        return render(request,'sigup.html', {
+        return render(request, 'sigup.html', {
             'form': UserCreationForm
-        } )   
+            }
+        )
 
     else:
         if request.POST['password1'] == request.POST['password2']:
@@ -34,7 +35,7 @@ def sigup(request):
                 return redirect('tasks')
 
             except: # noqa
-                return render(request, 'sigup.html', { 
+                return render(request, 'sigup.html', {
                     'form': UserCreationForm,
                     "error": 'Usuário já existe'
 
@@ -46,7 +47,7 @@ def sigup(request):
                     "error": 'senhas são diferentes'
 
                     }
-                ) 
+                )
 
 
 def sigin(request):
@@ -70,15 +71,15 @@ def sigin(request):
 
         else:
             login(request, user)
-            return redirect('tasks')   
+            return redirect('tasks')
 
 
-@login_required   
+@login_required
 def sair(request):
     logout(request)
     return redirect('home')
 
 
-@login_required       
+@login_required
 def tasks(request):
     return render(request, 'tasks.html')
